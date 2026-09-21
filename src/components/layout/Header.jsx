@@ -3,7 +3,7 @@ import { Search, Sun, Moon, ChevronDown, Menu } from "lucide-react";
 
 const Header = () => {
   return (
-    <header className="fixed -top-3 right-0 z-40 h-[100px] w-[calc(100%-260px)] px-5 pt-[18px] md:px-5">
+    <header className="fixed  -top-3 right-0 z-40 h-[100px] w-[calc(100%-260px)] px-5 pt-[18px] md:px-5">
       <div className="flex h-18.5 w-full items-center rounded-2xl border
        border-slate-200/80 bg-white/90 px-4 shadow-[0_4px_20px_rgba(15,23,42,0.06)] backdrop-blur-xl">
 
