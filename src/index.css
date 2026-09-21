@@ -2,3 +2,7 @@
 
 
 @import "tailwindcss";
+
+body {
+  background-color: #E1EBFE;
+}
