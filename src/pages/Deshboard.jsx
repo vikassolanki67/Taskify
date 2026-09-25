@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import banner from "../assets/welcome-banner.png"
 import useStore from '../store/taskStore'
-import { ClipboardList, Check, ClockFading, ShieldAlert } from 'lucide-react'
+import { ClipboardList, Check, ClockFading, ShieldAlert, ListIcon, ArrowRight } from 'lucide-react'
+import { NavLink } from 'react-router'
+import RecentTasks from './RecentTasks'
+import TaskFormModal from '../components/task/TaskFormModal'
 
 const Deshboard = () => {
 
   const tasks = useStore((state) => state.tasks)
   const [greeting, setgreeting] = useState()
-
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
   let completedCount = 0
   let overdueCount = 0
 
@@ -65,10 +68,16 @@ const Deshboard = () => {
     }
   }, [])
 
+
+  const sortTasks =  [...tasks].sort(
+    (a,b) => new Date(b.createdAt) - new Date(a.createdAt)
+  )
+  const recentTasks = sortTasks.slice(0,5)
+
   return (
     <div>
 
-      <div
+    <div
         className="ml-[260px] h-[250px] w-[calc(100%-260px)] overflow-hidden  bg-center bg-no-repeat"
         style={{
           backgroundImage: `url(${banner})`,
@@ -91,8 +100,15 @@ const Deshboard = () => {
             Stay organized and get things done.
           </p>
 
+          {isTaskModalOpen && (
+            <TaskFormModal
+              onClose={() => setIsTaskModalOpen(false)}
+            />
+          )}
+
           <button
             type="button"
+            onClick={() => setIsTaskModalOpen(true)}
             className="flex h-[46px] w-fit items-center gap-2 rounded-xl bg-[#6D3DF5] px-5 text-[15px] font-semibold text-white shadow-[0_8px_18px_rgba(109,61,245,0.28)] transition-all duration-200 hover:bg-[#5B2FE0] hover:shadow-[0_10px_22px_rgba(109,61,245,0.35)]"
           >
             <span className="text-[20px] leading-none">+</span>
@@ -110,14 +126,14 @@ const Deshboard = () => {
           </div>
 
         </div>
-      </div>
+    </div>
 
     <div className="ml-[260px] grid w-[calc(100%-260px)] grid-cols-4 gap-6 bg-[#E1EBFE] px-5 py-2">
 
       <div className="flex h-[95px] items-center gap-4 rounded-2xl border-2 border-white/80 bg-[#E6F2FE]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
 
         <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#E4F0FF]">
-          <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1478F2] text-white shadow-[0_0px_17px_rgba(20,120,242,0.95)]">
+          <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1478F2] text-white shadow-[0_0px_17px_rgba(20,120,242,0.75)]">
             <ClipboardList size={20} strokeWidth={2.4} />
           </div>
         </div>
@@ -250,7 +266,45 @@ const Deshboard = () => {
 
     </div>
 
+    <div className="ml-[260px] w-[calc(100%-260px)] bg-[#E1EBFE] px-5 pb-5 pt-3">
+
+      <div className="overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
+
+        <div className="flex h-[66px] items-center justify-between border-b border-[#E7EEF9] px-6">
+
+          <div className="flex items-center gap-3">
+            <ListIcon size={28} strokeWidth={2.5} className="text-[#5B3DF5]" />
+
+            <p className="text-[22px] font-bold text-[#111A46]">
+              Recent Tasks
+            </p>
+          </div>
+
+          <NavLink
+            to="/Alltask"
+            className="flex items-center gap-1.5 text-[14px] font-semibold text-[#1769FF] transition-all duration-200 hover:gap-2.5"
+          >
+            <span>View All</span>
+            <ArrowRight size={18} strokeWidth={2.3} />
+          </NavLink>
+
+        </div>
+
+        <div>
+          {recentTasks.map((task, index) => (
+            <RecentTasks
+              key={task.id}
+              task={task}
+              taskIndex={index}
+            />
+          ))}
+        </div>
+
+      </div>
+
     </div>
+
+  </div>
   )
 }
 
