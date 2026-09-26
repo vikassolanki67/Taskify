@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import banner from "../assets/welcome-banner.png"
 import useStore from '../store/taskStore'
-import { ClipboardList, Check, ClockFading, ShieldAlert, ListIcon, ArrowRight } from 'lucide-react'
+import { ClipboardList, Check, ClockFading, ShieldAlert, ListIcon, ArrowRight, CalendarDays } from 'lucide-react'
 import { NavLink } from 'react-router'
-import RecentTasks from './RecentTasks'
+import RecentTasks from '../components/dashboard/RecentTasks'
 import TaskFormModal from '../components/task/TaskFormModal'
-
+import ProgressSection from '../components/dashboard/ProgressSection'
+import TodaySection from '../components/dashboard/TodaySection'
 const Deshboard = () => {
 
   const tasks = useStore((state) => state.tasks)
@@ -15,7 +16,7 @@ const Deshboard = () => {
   let overdueCount = 0
 
   const currentdate = new Date().toISOString().split("T")[0]
-
+  const [openMenuId, setOpenMenuId] = useState(null)
   tasks.forEach(task => {
     if (task.status === "completed") {
       completedCount++
@@ -130,7 +131,7 @@ const Deshboard = () => {
 
     <div className="ml-[260px] grid w-[calc(100%-260px)] grid-cols-4 gap-6 bg-[#E1EBFE] px-5 py-2">
 
-      <div className="flex h-[95px] items-center gap-4 rounded-2xl border-2 border-white/80 bg-[#E6F2FE]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+      <div className="flex h-[93px] items-center gap-4 rounded-2xl border-2 border-white/80 bg-[#E6F2FE]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
 
         <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#E4F0FF]">
           <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1478F2] text-white shadow-[0_0px_17px_rgba(20,120,242,0.75)]">
@@ -151,7 +152,7 @@ const Deshboard = () => {
       </div>
 
 
-      <div className="relative flex h-[95px] flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#E6FAF4]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+      <div className="relative flex h-[93px] flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#E6FAF4]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
 
         <div className="flex items-center gap-3">
 
@@ -189,7 +190,7 @@ const Deshboard = () => {
       </div>
 
 
-      <div className="relative flex h-[95px] flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FFF5E9]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+      <div className="relative flex h-[93px] flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FFF5E9]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
 
         <div className="flex items-center gap-3">
 
@@ -227,7 +228,7 @@ const Deshboard = () => {
       </div>
 
 
-      <div className="relative flex h-[95px]  bg-[#FEEBF0]/80  flex-col justify-center rounded-2xl border-2 border-white/80  px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+      <div className="relative flex h-[93px]  bg-[#FEEBF0]/80  flex-col justify-center rounded-2xl border-2 border-white/80  px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
 
         <div className="flex items-center gap-3">
 
@@ -266,11 +267,11 @@ const Deshboard = () => {
 
     </div>
 
-    <div className="ml-[260px] w-[calc(100%-260px)] bg-[#E1EBFE] px-5 pb-5 pt-3">
+    <div className="ml-[260px] w-[calc(100%-260px)] gap-4 bg-[#E1EBFE] flex px-5 pb-5 pt-2">
 
-      <div className="overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
+      <div className="overflow-hidden w-[62%] rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
 
-        <div className="flex h-[66px] items-center justify-between border-b border-[#E7EEF9] px-6">
+        <div className="flex h-[60px] items-center justify-between border-b border-[#E7EEF9] px-6">
 
           <div className="flex items-center gap-3">
             <ListIcon size={28} strokeWidth={2.5} className="text-[#5B3DF5]" />
@@ -290,18 +291,30 @@ const Deshboard = () => {
 
         </div>
 
-        <div>
+        <div className="max-h-[175px] overflow-y-auto" >
           {recentTasks.map((task, index) => (
             <RecentTasks
               key={task.id}
               task={task}
               taskIndex={index}
+              openMenuId={openMenuId}
+              setOpenMenuId={setOpenMenuId}
+
             />
           ))}
         </div>
 
       </div>
 
+      <div>
+        {/* <div>
+          <ProgressSection totalCount={totalCount} completedPercentage={completedPercentage} completedCount={completedCount} />
+        </div> */}
+        <div>
+          <TodaySection/>
+        </div>
+      </div>
+      
     </div>
 
   </div>
