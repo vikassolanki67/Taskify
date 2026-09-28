@@ -267,7 +267,7 @@ const Deshboard = () => {
 
     </div>
 
-    <div className="ml-[260px] w-[calc(100%-260px)] gap-4 bg-[#E1EBFE] flex px-5 pb-5 pt-2">
+    <div className="ml-[260px] w-[calc(100%-260px)] gap-4 bg-[#E1EBFE] flex px-5 pb-2 pt-2">
 
       <div className="overflow-hidden w-[62%] rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
 
