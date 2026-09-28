@@ -1,19 +1,41 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Eye, PencilSparkles, Trash } from 'lucide-react'
+import TaskDetails from './TaskDetails'
+import TaskFormModal from './TaskFormModal'
 
-function TaskActionMenu() {
+function TaskActionMenu({task}) {
+
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
+
+  const [isEditModalOpen, setEditModalOpen] = useState(false)
+  
   return (
     <div className="w-[190px] overflow-hidden rounded-xl border border-[#E2E9F5] bg-white p-1.5 shadow-[0_10px_30px_rgba(30,64,175,0.14)]">
+        
+      {isTaskModalOpen && (
+        <TaskDetails
+          task={task}
+          onClose={() => setIsTaskModalOpen(false)}
+        />
+      )}
       <button
         type="button"
+        onClick={() => setIsTaskModalOpen(true)}
         className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-[13px] font-medium text-[#243B70] transition-all duration-200 hover:bg-[#EEF4FF] hover:text-[#1769FF]"
       >
         <Eye size={18} strokeWidth={2} />
         <span>View Details</span>
       </button>
 
+      {isEditModalOpen && (
+        <TaskFormModal 
+          task={task}
+          onClose={() => setEditModalOpen(false)}
+        />
+      )}
       <button
         type="button"
+        onClick={() => setEditModalOpen(true)}
         className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-[13px] font-medium text-[#243B70] transition-all duration-200 hover:bg-[#F2EEFF] hover:text-[#6D3DF5]"
       >
         <PencilSparkles size={18} strokeWidth={2} />

@@ -121,7 +121,7 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
 
         {openMenuId === task.id && (
           <div className="absolute right-6 top-3 z-50">
-            <TaskActionMenu />
+            <TaskActionMenu task={task}/>
           </div>
         )}
       </div>
