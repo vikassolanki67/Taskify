@@ -4,35 +4,39 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import useStore from '../../store/taskStore.js'
 
-function TaskFormModal({ onClose }) {
+function TaskFormModal({ onClose , task}) {
+  
   const createTask = useStore((state) => state.createTask)
+  const updateTask = useStore((state) => state.updateTask)
 
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm({
-    resolver: zodResolver(taskSchema),
+  } = useForm({ resolver: zodResolver(taskSchema),
     defaultValues: {
-      title: '',
-      description: '',
-      priority: 'medium',
-      category: 'other',
-      dueDate: '',
+      title: task?.title || '',
+      description: task?.description || '',
+      priority: task?.priority || 'medium',
+      category: task?.category || 'other',
+      dueDate: task?.dueDate || '',
     },
   })
 
   function submitHandler(data) {
-    console.log(data)
+    if (task) {
+      updateTask(task.id, data)
+    } else {
+      const newTask = {
+        id: crypto.randomUUID(),
+        ...data,
+        createdAt: new Date(),
+        status: 'active',
+      }
 
-    const task = {
-      id: crypto.randomUUID(),
-      ...data,
-      createdAt: new Date(),
-      status: 'active',
+      createTask(newTask)
     }
 
-    createTask(task)
     onClose()
   }
 
@@ -45,10 +49,10 @@ function TaskFormModal({ onClose }) {
         <div className="flex items-center justify-between border-b border-[#E8EEF8] px-6 py-4">
           <div>
             <h1 className="text-[22px] font-bold text-[#111A46]">
-              Add New Task
+              {task ? 'Edit Task' : 'Add New Task'}
             </h1>
             <p className="mt-1 text-[13px] text-[#7183A6]">
-              Create a task and stay organized.
+              {task ? 'Update your task details.' : 'Create a task and stay organized.'}
             </p>
           </div>
 
@@ -165,7 +169,7 @@ function TaskFormModal({ onClose }) {
             type="submit"
             className="h-11 rounded-xl bg-[#6D3DF5] px-6 text-[14px] font-semibold text-white shadow-[0_8px_18px_rgba(109,61,245,0.28)] transition-all duration-200 hover:bg-[#5B2FE0] hover:shadow-[0_10px_22px_rgba(109,61,245,0.35)]"
           >
-            Add Task
+            {task ? 'Save Changes' : 'Add Task'}
           </button>
         </div>
       </form>
