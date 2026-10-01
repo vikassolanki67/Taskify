@@ -7,6 +7,8 @@ import RecentTasks from '../components/dashboard/RecentTasks'
 import TaskFormModal from '../components/task/TaskFormModal'
 import ProgressSection from '../components/dashboard/ProgressSection'
 import TodaySection from '../components/dashboard/TodaySection'
+
+
 const Deshboard = () => {
 
   const tasks = useStore((state) => state.tasks)
@@ -267,14 +269,18 @@ const Deshboard = () => {
 
     </div>
 
-    <div className="ml-[260px] w-[calc(100%-260px)] gap-4 bg-[#E1EBFE] flex px-5 pb-2 pt-2">
+    <div className="ml-[260px] flex w-[calc(100%-260px)] gap-4 bg-[#E1EBFE] px-5 pb-2 pt-2">
 
-      <div className="overflow-hidden w-[62%] rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
+      <div className="h-[235px] w-[62%] shrink-0 overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
 
         <div className="flex h-[60px] items-center justify-between border-b border-[#E7EEF9] px-6">
 
           <div className="flex items-center gap-3">
-            <ListIcon size={28} strokeWidth={2.5} className="text-[#5B3DF5]" />
+            <ListIcon
+              size={28}
+              strokeWidth={2.5}
+              className="text-[#5B3DF5]"
+            />
 
             <p className="text-[22px] font-bold text-[#111A46]">
               Recent Tasks
@@ -291,30 +297,40 @@ const Deshboard = () => {
 
         </div>
 
-        <div className="max-h-[175px] overflow-y-auto" >
-          {recentTasks.map((task, index) => (
-            <RecentTasks
-              key={task.id}
-              task={task}
-              taskIndex={index}
-              openMenuId={openMenuId}
-              setOpenMenuId={setOpenMenuId}
+        <div className="h-[175px] overflow-y-auto">
+          {recentTasks.length > 0 ? (
+            recentTasks.map((task, index) => (
+              <RecentTasks
+                key={task.id}
+                task={task}
+                taskIndex={index}
+                openMenuId={openMenuId}
+                setOpenMenuId={setOpenMenuId}
+              />
+            ))
+          ) : (
+            <div className="flex h-full flex-col items-center justify-center text-center">
+              <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EEF2FF] text-[#6D3DF5]">
+                <ClipboardList size={21} strokeWidth={2.2} />
+              </div>
 
-            />
-          ))}
+              <p className="mt-3 text-[14px] font-semibold text-[#243B70]">
+                No recent tasks
+              </p>
+
+              <p className="mt-1 text-[12px] text-[#7C8EAD]">
+                Your recent tasks will appear here.
+              </p>
+            </div>
+          )}
         </div>
 
       </div>
 
-      <div>
-        {/* <div>
-          <ProgressSection totalCount={totalCount} completedPercentage={completedPercentage} completedCount={completedCount} />
-        </div> */}
-        <div>
-          <TodaySection/>
-        </div>
+      <div className="min-w-0 flex-1">
+        <TodaySection />
       </div>
-      
+
     </div>
 
   </div>

@@ -19,7 +19,7 @@ function TodaySection({ onAddQuickTask }) {
   })
 
   return (
-    <section className="rounded-2xl border w-[135%] border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
+    <section className="w-full overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)]">
       <div className="flex items-center justify-between border-b border-[#E7EEF9] px-5 py-[3px]">
         <div>
           <h2 className="text-[21px] font-bold text-[#111A46]">
@@ -50,7 +50,7 @@ function TodaySection({ onAddQuickTask }) {
             return (
               <div
                 key={task.id}
-                className="flex min-h-[62px] items-center gap-4 border-b border-[#E8EEF8] px-5 transition-all duration-200 hover:bg-[#FAFCFF]"
+                className="flex h-[62px] min-w-0 items-center gap-4 overflow-hidden border-b border-[#E8EEF8] px-5 transition-all duration-200 hover:bg-[#FAFCFF]"
               >
                 <button
                   type="button"
@@ -71,7 +71,7 @@ function TodaySection({ onAddQuickTask }) {
                   )}
                 </button>
 
-                <div className="min-w-0 -p-[2px] flex-1">
+                <div className="min-w-0 overflow-hidden flex-1">
                   <p
                     className={`truncate text-[14px] font-semibold ${
                       task.status === 'completed'
@@ -90,7 +90,7 @@ function TodaySection({ onAddQuickTask }) {
                 <Flag
                   size={19}
                   strokeWidth={2.2}
-                  className={priorityColor}
+                  className={`${priorityColor} shrink-0`}
                   fill="currentColor"
                 />
               </div>
