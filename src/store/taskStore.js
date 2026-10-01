@@ -6,6 +6,8 @@ const useStore = create(
     persist(
       (set) => ({
         tasks: [],
+        deletedTask: null, 
+        toast: null,
 
         createTask: (data) =>
           set((state) => ({
@@ -13,10 +15,31 @@ const useStore = create(
           })),
 
         deleteTask: (id) =>
-          set((state) => ({
-            tasks: state.tasks.filter((task) => task.id !== id),
-          })),
-        
+          set((state) => {
+            const deletedTask = state.tasks.find((task) => task.id === id)
+
+            return {
+              tasks: state.tasks.filter((task) => task.id !== id),
+              deletedTask: deletedTask || null,
+            }
+          }),
+
+        undoDelete: () =>
+          set((state) => {
+            if (!state.deletedTask) return state
+
+            const restoredTask = state.deletedTask
+
+            return {
+              tasks: [...state.tasks, restoredTask],
+              deletedTask: null,
+              toast: {
+                type: "restored",
+                title: restoredTask.title,
+              },
+            }
+          }),
+          
         clearAllTasks: () =>
           set(() => ({
             tasks: [],
@@ -39,6 +62,19 @@ const useStore = create(
                 : task,
             ),
         })),
+
+        showToast: (type, title) =>
+          set(() => ({
+            toast: {
+              type,
+              title,
+            },
+          })),
+        
+        hideToast: () =>
+          set(() => ({
+            toast: null,
+          })),
         
       }),
       { name: 'taskStore' }
