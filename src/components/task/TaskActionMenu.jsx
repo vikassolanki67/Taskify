@@ -2,12 +2,14 @@ import React, { useState } from 'react'
 import { Eye, PencilSparkles, Trash } from 'lucide-react'
 import TaskDetails from './TaskDetails'
 import TaskFormModal from './TaskFormModal'
+import ConfirmDialog from '../common/ConfirmDialog'
 
 function TaskActionMenu({task}) {
 
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
 
   const [isEditModalOpen, setEditModalOpen] = useState(false)
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
   
   return (
     <div className="w-[190px] overflow-hidden rounded-xl border border-[#E2E9F5] bg-white p-1.5 shadow-[0_10px_30px_rgba(30,64,175,0.14)]">
@@ -44,8 +46,15 @@ function TaskActionMenu({task}) {
 
       <div className="my-1 h-px bg-[#E8EEF8]" />
 
+      {isDeleteModalOpen && (
+        <ConfirmDialog 
+          task={task}
+          onClose={() => setDeleteModalOpen(false)}
+        />
+      )}
       <button
         type="button"
+        onClick={() => setDeleteModalOpen(true)}
         className="flex h-10 w-full items-center gap-3 rounded-lg px-3 text-left text-[13px] font-medium text-[#EF4444] transition-all duration-200 hover:bg-[#FFF1F2]"
       >
         <Trash size={18} strokeWidth={2} />

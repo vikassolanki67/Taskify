@@ -53,11 +53,11 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
   }, [openMenuId, task.id, setOpenMenuId])
 
   return (
-    <div className="relative flex h-[62px] items-center border-b border-[#E8EEF8] px-6 transition-all duration-200 hover:bg-[#FAFCFF]">
+    <div className="relative flex h-[62px]  min-w-0  items-center border-b border-[#E8EEF8] px-2 transition-all duration-200 hover:bg-[#FAFCFF]">
       <button
         type="button"
         onClick={() => toggle(task.id)}
-        className="mr-5 flex shrink-0 items-center justify-center text-[#54709F] transition-all duration-200 hover:scale-105"
+        className="mr-5 flex  items-center justify-center text-[#54709F] transition-all duration-200 hover:scale-105"
       >
         {task.status === 'active' ? (
           <Square size={26} strokeWidth={1.8} />
@@ -82,7 +82,7 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
         </p>
       </div>
 
-      <div className="w-[110px]">
+      <div className="w-[110px] ">
         <span
           className={`inline-flex rounded-lg px-3 py-1 text-[11px] font-semibold capitalize ${categoryStyle}`}
         >
@@ -90,7 +90,7 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
         </span>
       </div>
 
-      <div className="flex w-[150px] items-center gap-2 text-[#58709D]">
+      <div className="flex w-[150px]  items-center gap-2 text-[#58709D]">
         <CalendarDaysIcon size={19} strokeWidth={2} />
         <p className="text-[13px] font-medium">
           {task.dueDate || 'No due date'}
