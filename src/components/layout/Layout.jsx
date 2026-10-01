@@ -3,8 +3,10 @@ import { Outlet } from 'react-router'
 import Sidebar from './Sidebar'
 import Header from './Header'
 import Footer from './Footer'
-
+import Toast from '../common/Toast'
+import useStore from '../../store/taskStore'
 const Layout = () => {
+  const toast = useStore((state) => state.toast)
   return (
     <div>
       <Sidebar />
@@ -15,6 +17,8 @@ const Layout = () => {
       </main>
 
       <Footer />
+
+      {toast &&  <Toast/>}
     </div>
   )
 }
