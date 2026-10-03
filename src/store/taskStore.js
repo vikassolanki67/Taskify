@@ -8,6 +8,7 @@ const useStore = create(
         tasks: [],
         deletedTask: null, 
         toast: null,
+        profile : {},
 
         createTask: (data) =>
           set((state) => ({
@@ -75,7 +76,15 @@ const useStore = create(
           set(() => ({
             toast: null,
           })),
-        
+
+        updateProfile: (data) =>
+          set(() => ({
+            profile: {
+              name: data.name,
+              avatar: data.avatar,
+            },
+          })),
+
       }),
       { name: 'taskStore' }
     ),
