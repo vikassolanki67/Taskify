@@ -1,7 +1,32 @@
 import React from "react";
 import { Search, Sun, Moon, ChevronDown, Menu } from "lucide-react";
+import useStore from "../../store/taskStore";
 
 const Header = () => {
+  const avatarOptions = [
+    {
+      value: 'Male',
+      label: 'Male',
+      image:
+        'https://api.dicebear.com/10.x/adventurer/svg?seed=TaskifyMale&backgroundColor=b6e3f4',
+    },
+    {
+      value: 'Female',
+      label: 'Female',
+      image:
+        'https://api.dicebear.com/10.x/adventurer/svg?seed=TaskifyFemale&backgroundColor=ffd5dc',
+    },
+    {
+      value: 'Neutral',
+      label: 'Neutral',
+      image:
+        'https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=TaskifyNeutral&backgroundColor=c0e8e8',
+    },
+  ]
+
+  const Name  = useStore((state) => state.profile.name)
+  const avatar  = useStore((state) => state.profile.avatar)
+
   return (
     <header className="fixed  -top-3 right-0 z-40 h-[100px] w-[calc(100%-260px)] px-5 pt-[18px] md:px-5">
       <div className="flex h-18.5 w-full items-center rounded-2xl border
@@ -45,12 +70,20 @@ const Header = () => {
           >
             <div className="flex h-[52px] w-[52px] items-center justify-center overflow-hidden rounded-full bg-gradient-to-br from-[#C4A1FF] to-[#6D3DE8] ring-4 ring-[#EEE7FF]">
               <div className="flex h-full w-full items-center justify-center text-[27px]">
-                👩🏻
+                <img
+                  src={
+                    avatarOptions.find(
+                      (item) => item.value === avatar
+                    )?.image
+                  }
+                  alt="Selected avatar"
+                  className="object-contain"
+                />
               </div>
             </div>
 
             <span className="text-[16px] font-semibold text-[#10183D]">
-              Tamanna
+              {Name}
             </span>
 
             <ChevronDown size={20} strokeWidth={2.4} className="ml-1 text-[#233D70]" />
