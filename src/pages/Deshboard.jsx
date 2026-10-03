@@ -10,8 +10,9 @@ import TodaySection from '../components/dashboard/TodaySection'
 
 
 const Deshboard = () => {
-
+  
   const tasks = useStore((state) => state.tasks)
+  const Name  = useStore((state) => state.profile.name)
   const [greeting, setgreeting] = useState()
   const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
   let completedCount = 0
@@ -95,7 +96,7 @@ const Deshboard = () => {
             </h1>
 
             <span className="text-[30px] font-bold text-[#6D3DF5]">
-              User!
+              {Name}
             </span>
           </div>
 
