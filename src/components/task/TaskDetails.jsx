@@ -1,11 +1,13 @@
 import { CalendarHeartIcon, X, Clock, CalendarPlus } from 'lucide-react'
 import React, { useState } from 'react'
 import TaskFormModal from './TaskFormModal'
+import ConfirmDialog from '../common/ConfirmDialog'
 
 function TaskDetails({ onClose, task }) {
 
   const [isEditModalOpen, setEditModalOpen] = useState(false)
-
+  const [isDeleteModalOpen, setDeleteModalOpen] = useState(false)
+  
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-[3px]">
       <div className="w-full max-w-[500px] overflow-hidden rounded-2xl border border-white/80 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.20)]">
@@ -130,8 +132,15 @@ function TaskDetails({ onClose, task }) {
             Edit
           </button>
 
+          {isDeleteModalOpen && (
+            <ConfirmDialog 
+              task={task}
+              onClose={() => setDeleteModalOpen(false)}
+            />
+          )}
           <button
             type="button"
+            onClick={() => setDeleteModalOpen(true)}
             className="h-11 flex-1 rounded-xl bg-[#EF4444] text-[14px] font-semibold text-white shadow-[0_8px_18px_rgba(239,68,68,0.22)] transition-all duration-200 hover:bg-[#DC3D48] hover:shadow-[0_10px_22px_rgba(239,68,68,0.30)]"
           >
             Delete
