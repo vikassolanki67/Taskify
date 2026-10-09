@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Search, Sun, Moon, ChevronDown, Menu } from "lucide-react";
 import useStore from "../../store/taskStore";
-
+import { useNavigate } from "react-router";
 const Header = () => {
+    const tasks = useStore((state) => state.tasks)
+
+  
   const avatarOptions = [
     {
       value: 'Male',
@@ -27,6 +30,56 @@ const Header = () => {
   const Name  = useStore((state) => state.profile.name)
   const avatar  = useStore((state) => state.profile.avatar)
 
+  const [search, setSearch] = useState("");
+  const [filteredTasks, setFilteredTasks] = useState([])
+
+  const navigate = useNavigate()
+
+  const handleSelectTask = (task) => {
+    navigate("/Alltask", {
+      state: {
+        selectedTaskId: task.id,
+      },
+    })
+
+    setSearch("")
+    setFilteredTasks([])
+  }
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === "Escape") {
+      setSearch("")
+      setFilteredTasks([])
+      return
+    }
+
+    if (e.key === "Enter" && search.trim()) {
+      e.preventDefault()
+
+      navigate("/Alltask", {
+        state: {
+          globalSearchQuery: search.trim(),
+        },
+      })
+
+      setSearch("")
+      setFilteredTasks([])
+    }
+  }
+  const handleSearch = (value) => {
+    setSearch(value)
+
+    if (!value.trim()) {
+      setFilteredTasks([])
+      return
+    }
+
+    const results = tasks.filter((task) =>
+      task.title.toLowerCase().includes(value.trim().toLowerCase())
+    )
+
+    setFilteredTasks(results)
+  }
   return (
     <header className="fixed  -top-3 right-0 z-40 h-[100px] w-[calc(100%-260px)] px-5 pt-[18px] md:px-5">
       <div className="flex h-18.5 w-full items-center rounded-2xl border
@@ -38,10 +91,39 @@ const Header = () => {
 
           <input
             type="search"
-            placeholder="Search tasks, categories..."
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Search tasks..."
+            value={search}
+            onKeyDown={handleSearchKeyDown}
+            onClick={() => handleSelectTask(task)}
             className="h-[90%] w-full rounded-xl bg-transparent pl-[62px] pr-4 
             text-[16px] text-[#172554] outline-none placeholder:text-[#58709D]"
           />
+          {search.trim() && (
+            <div className="absolute left-0 right-0 top-[calc(100%+8px)] z-[60] overflow-hidden rounded-xl border border-[#E2E9F5] bg-white shadow-[0_12px_30px_rgba(30,64,120,0.14)]">
+
+              {filteredTasks.length > 0 ? (
+                <div className="max-h-[280px] overflow-y-auto py-1.5">
+                  {filteredTasks.map((task) => (
+                    <div
+                      key={task.id}
+                      onClick={() => handleSelectTask(task)}
+                      className="cursor-pointer border-b border-[#EEF1F7] px-5 py-3.5 last:border-b-0 hover:bg-[#F4F7FF]"
+                    >
+                      <p className="truncate text-[14px] font-medium text-[#172554]">
+                        {task.title}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <p className="px-5 py-4 text-[14px] text-[#58709D]">
+                  No matching tasks found
+                </p>
+              )}
+
+            </div>
+          )}
         </div>
 
         <div className="ml-7 hidden items-center lg:flex">

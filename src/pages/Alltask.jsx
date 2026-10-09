@@ -4,9 +4,14 @@ import TaskFormModal from '../components/task/TaskFormModal'
 import FilterForm from '../components/filters/FilterForm'
 import useStore from '../store/taskStore'
 import TaskList from '../components/task/TaskList'
-
+import { useLocation, useNavigate } from "react-router";
 const Alltask = () => {
+  const location = useLocation()
 
+  const selectedTaskId = location.state?.selectedTaskId ?? null
+  const globalSearchQuery = location.state?.globalSearchQuery ?? ""
+ 
+  const [openMenuId, setOpenMenuId] = useState(null)
   const [appliedFilters, setAppliedFilters] = useState({
     status: "all",
     priority: "all",
@@ -20,7 +25,18 @@ const Alltask = () => {
   
   const visibleTasks = useMemo(() => {
     let result = [...tasks]
+    
+    if (selectedTaskId) {
+      result = result.filter(
+        (task) => task.id === selectedTaskId
+      )
+    } else if (globalSearchQuery.trim()) {
+      const query = globalSearchQuery.trim().toLowerCase()
 
+      result = result.filter((task) =>
+        task.title.toLowerCase().includes(query)
+      )
+    }
     // Status
     if (appliedFilters.status !== "all") {
       result = result.filter(
@@ -108,10 +124,12 @@ const Alltask = () => {
     }
 
     return result
-  }, [tasks, appliedFilters])
+  }, [tasks, appliedFilters, selectedTaskId,globalSearchQuery])
 
+
+ 
   return (
-    <div>
+    <div className="min-h-[calc(100vh-55px)]">
       <div
         className="  ml-[260px] h-[265px] w-[calc(100%-260px)] overflow-hidden bg-center bg-no-repeat"
         style={{
@@ -130,7 +148,7 @@ const Alltask = () => {
             <button
               type="button"
               onClick={() => setIsTaskModalOpen(true)}
-              className="flex h-[46px] items-center gap-2 rounded-xl bg-[#119DA4] px-5 text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(17,157,164,0.25)] transition-all duration-200 hover:bg-[#0D8990] hover:-translate-y-0.5"
+              className="flex h-[46px] items-center gap-2 rounded-xl bg-[#6246F5] px-5 text-[14px] font-semibold text-white shadow-[0_8px_20px_rgba(17,157,164,0.25)] transition-all duration-200 hover:bg-[#3316ee] hover:-translate-y-0.5"
             >
               <span className="text-[22px] leading-none">+</span>
               Add Task
@@ -170,6 +188,8 @@ const Alltask = () => {
     <TaskList
       visibleTasks={visibleTasks}
       totalTasks={tasks}
+      openMenuId={openMenuId}
+      setOpenMenuId={setOpenMenuId}
     />
     </div>
   )
