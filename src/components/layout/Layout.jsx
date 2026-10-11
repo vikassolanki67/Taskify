@@ -10,14 +10,13 @@ const Layout = () => {
   const toast = useStore((state) => state.toast)
 
   return (
-    <div>
+    <div className="flex min-h-screen flex-col">
       <Sidebar />
       <Header />
 
-      <main>
-        <Outlet />
-      </main>
-
+    <main className="w-full min-w-0 flex-1">
+      <Outlet />
+    </main>
       <Footer />
 
       {toast && <Toast />}
