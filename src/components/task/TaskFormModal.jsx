@@ -41,7 +41,7 @@ function TaskFormModal({ onClose , task}) {
   }
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4 backdrop-blur-[2px]">
+    <div className="fixed inset-10 z-110 flex items-center justify-center bg-black/40 px-4 backdrop-blur-[2px]">
       <form
         onSubmit={handleSubmit(submitHandler)}
         className="w-full  max-w-[500px] overflow-hidden rounded-2xl border border-white/80 bg-white shadow-[0_20px_60px_rgba(15,23,42,0.18)]"
