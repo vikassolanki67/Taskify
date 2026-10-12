@@ -31,7 +31,7 @@ function TodaySection() {
         </span>
       </div>
 
-      <div className="max-h-[186px] min-w-0 overflow-x-hidden overflow-y-auto">
+      <div className="h-[124px] min-w-0 overflow-x-hidden overflow-y-auto">
         {todayTasks.length > 0 ? (
           todayTasks.map((task) => {
             const priorityColor =
