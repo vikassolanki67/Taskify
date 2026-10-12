@@ -13,6 +13,7 @@ import { NavLink } from "react-router";
 import RecentTasks from "../components/dashboard/RecentTasks";
 import TaskFormModal from "../components/task/TaskFormModal";
 import TodaySection from "../components/dashboard/TodaySection";
+import { createPortal } from "react-dom";
 
 const Deshboard = () => {
   const tasks = useStore((state) => state.tasks);
@@ -96,19 +97,20 @@ const Deshboard = () => {
             Stay organized and get things done.
           </p>
 
-          {isTaskModalOpen && (
-            <TaskFormModal onClose={() => setIsTaskModalOpen(false)} />
-          )}
-
           <button
             type="button"
             onClick={() => setIsTaskModalOpen(true)}
-            className="relative z-10 flex h-[42px] w-fit items-center gap-2 rounded-xl bg-[#6D3DF5] px-4 text-[14px] font-semibold text-white 
-                      shadow-[0_8px_18px_rgba(109,61,245,0.28)] transition-all duration-200 hover:bg-[#5B2FE0] hover:shadow-[0_10px_22px_rgba(109,61,245,0.35)] sm:absolute sm:bottom-2 sm:left-6 sm:h-[46px] sm:px-5 sm:text-[15px] lg:left-8"
+            className="relative z-10 flex h-[42px] w-fit items-center gap-2 rounded-xl bg-[#6D3DF5] px-4 text-[14px] font-semibold text-white shadow-[0_8px_18px_rgba(109,61,245,0.28)] transition-all duration-200 hover:bg-[#5B2FE0] hover:shadow-[0_10px_22px_rgba(109,61,245,0.35)] sm:absolute sm:bottom-2 sm:left-6 sm:h-[46px] sm:px-5 sm:text-[15px] lg:left-8"
           >
             <span className="text-[20px] leading-none">+</span>
             Add Task
           </button>
+
+          {isTaskModalOpen &&
+            createPortal(
+              <TaskFormModal onClose={() => setIsTaskModalOpen(false)} />,
+              document.body,
+            )}
 
           <div className="absolute bottom-2 right-3 hidden max-w-[230px] items-center gap-2 sm:flex sm:bottom-2 sm:left-[212px] sm:right-auto sm:gap-3">
             <div className="h-10 w-[3px] shrink-0 rounded-full bg-[#7C3AED] sm:h-12" />
@@ -245,6 +247,7 @@ const Deshboard = () => {
                   key={task.id}
                   task={task}
                   taskIndex={index}
+                  totalTasks={recentTasks.length}
                   openMenuId={openMenuId}
                   setOpenMenuId={setOpenMenuId}
                 />
