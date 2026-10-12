@@ -9,8 +9,10 @@ import {
 import useStore from "../../store/taskStore.js";
 import TaskActionMenu from "../task/TaskActionMenu";
 
-function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
+function RecentTasks({ task, taskIndex, totalTasks,openMenuId, setOpenMenuId }) {
   const toggle = useStore((state) => state.toggleTask);
+ 
+  const openUp = taskIndex >= totalTasks -2;
 
   const priorityStyle =
     task.priority === "high"
@@ -80,7 +82,7 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
         </span>
       </div>
 
-      <div className="hidden w-[125px] shrink-0 items-center gap-1.5 text-[#58709D] xl:flex 2xl:w-[150px]">
+      <div className=" w-[125px] shrink-0 items-center gap-1.5 text-[#58709D] xl:flex 2xl:w-[150px]">
         <CalendarDaysIcon size={17} strokeWidth={2} className="shrink-0" />
         <p className="truncate text-[11px] font-medium 2xl:text-[12px]">
           {task.dueDate || "No due date"}
@@ -110,7 +112,7 @@ function RecentTasks({ task, taskIndex, openMenuId, setOpenMenuId }) {
           <EllipsisVertical size={19} strokeWidth={2.2} />
         </button>
         {openMenuId === task.id && (
-          <div className="absolute right-0 top-8 z-50">
+          <div className={`absolute right-0 z-50 ${openUp ? "bottom-4" : "top-4"}`}>
             <TaskActionMenu task={task} />
           </div>
         )}
