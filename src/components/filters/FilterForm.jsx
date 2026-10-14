@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useRef, useState } from "react";
 import {
   CircleDot,
   Flag,
@@ -7,107 +7,94 @@ import {
   ArrowUpDown,
   ChevronDown,
   Check,
-} from "lucide-react"
+} from "lucide-react";
 
-const FilterDropdown = ({name,label,value,options,icon,iconColor,onChange,}) => {
-  const [open, setOpen] = useState(false)
-  const dropdownRef = useRef(null)
+const FilterDropdown = ({
+  name,
+  label,
+  value,
+  options,
+  icon,
+  iconColor,
+  onChange,
+}) => {
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(e) {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(e.target)
-      ) {
-        setOpen(false)
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setOpen(false);
       }
     }
 
-    document.addEventListener("mousedown", handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
-
-  const selectedOption = options.find(
-    (option) => option.value === value
-  )
+  const selectedOption = options.find((option) => option.value === value);
 
   return (
-    <div
-      ref={dropdownRef}
-      className="relative min-w-0"
-    >
+    <div ref={dropdownRef} className="relative min-w-0">
       <button
         type="button"
         onClick={() => setOpen((prev) => !prev)}
-        className={`flex h-[62px] w-full items-center bg-[radial-gradient(circle,rgba(238,174,202,1)_0%,rgba(148,187,233,1)_100%)]  gap-3 rounded-xl border px-4 text-left shadow-[0_5px_18px_rgba(44,62,120,0.07)] transition-all duration-200 ${
+        className={`flex h-[62px] w-full items-center gap-2 rounded-xl border bg-[radial-gradient(circle,rgba(238,174,202,1)_0%,rgba(148,187,233,1)_100%)] px-3 text-left shadow-[0_5px_18px_rgba(44,62,120,0.07)] transition-all duration-200 sm:gap-3 sm:px-4 ${
           open
             ? "border-[#6246F5] shadow-[0_8px_22px_rgba(98,70,245,0.12)]"
             : "border-[#E4EAF5] hover:border-[#C8D3E8]"
         }`}
       >
-        <div
-          className="shrink-0"
-          style={{ color: iconColor }}
-        >
+        <div className="shrink-0" style={{ color: iconColor }}>
           {icon}
         </div>
 
         <div className="min-w-0 flex-1">
-          <p className="text-[12px] font-medium leading-none text-[#5870A6]">
+          <p className="text-[11px] font-medium leading-none text-[#5870A6] sm:text-[12px]">
             {label}
           </p>
-
-          <p className="mt-1 truncate text-[14px] font-semibold text-[#111A46]">
+          <p className="mt-1 truncate text-[13px] font-semibold text-[#111A46] sm:text-[14px]">
             {selectedOption?.label}
           </p>
         </div>
 
         <ChevronDown
           size={17}
-          className={`shrink-0 text-[#28467C] transition-transform duration-200 ${
-            open ? "rotate-180" : ""
-          }`}
+          className={`shrink-0 text-[#28467C] transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 top-[68px] z-50 overflow-hidden rounded-xl border border-[#E1E7F2] bg-white p-1.5 shadow-[0_15px_35px_rgba(31,52,100,0.16)]">
+        <div className="absolute left-0 right-0 top-[68px] z-50 max-h-60 overflow-y-auto rounded-xl border border-[#E1E7F2] bg-white p-1.5 shadow-[0_15px_35px_rgba(31,52,100,0.16)]">
           {options.map((option) => {
-            const selected = option.value === value
+            const selected = option.value === value;
 
             return (
               <button
                 key={option.value}
                 type="button"
                 onClick={() => {
-                  onChange(name, option.value)
-                  setOpen(false)
+                  onChange(name, option.value);
+                  setOpen(false);
                 }}
-                className={`flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-[13px] transition-colors ${
+                className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2.5 text-left text-[13px] transition-colors ${
                   selected
                     ? "bg-[#EEF0FF] font-semibold text-[#6246F5]"
                     : "text-[#263B6A] hover:bg-[#F6F8FC]"
                 }`}
               >
                 <span>{option.label}</span>
-
                 {selected && (
-                  <Check
-                    size={16}
-                    className="text-[#6246F5]"
-                  />
+                  <Check size={16} className="shrink-0 text-[#6246F5]" />
                 )}
               </button>
-            )
+            );
           })}
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 const FilterForm = ({ onApply, onReset }) => {
   const [filters, setFilters] = useState({
@@ -116,18 +103,15 @@ const FilterForm = ({ onApply, onReset }) => {
     category: "all",
     dueDate: "all",
     sort: "newest",
-  })
+  });
 
   function handleChange(name, value) {
-    setFilters((prev) => ({
-      ...prev,
-      [name]: value,
-    }))
+    setFilters((prev) => ({ ...prev, [name]: value }));
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
-    onApply(filters)
+    e.preventDefault();
+    onApply(filters);
   }
 
   function handleReset() {
@@ -137,24 +121,24 @@ const FilterForm = ({ onApply, onReset }) => {
       category: "all",
       dueDate: "all",
       sort: "newest",
-    }
+    };
 
-    setFilters(defaultFilters)
-    onReset(defaultFilters)
+    setFilters(defaultFilters);
+    onReset(defaultFilters);
   }
 
   const statusOptions = [
     { value: "all", label: "All" },
     { value: "active", label: "Active" },
     { value: "completed", label: "Completed" },
-  ]
+  ];
 
   const priorityOptions = [
     { value: "all", label: "All Priorities" },
     { value: "low", label: "Low" },
     { value: "medium", label: "Medium" },
     { value: "high", label: "High" },
-  ]
+  ];
 
   const categoryOptions = [
     { value: "all", label: "All Categories" },
@@ -163,7 +147,7 @@ const FilterForm = ({ onApply, onReset }) => {
     { value: "personal", label: "Personal" },
     { value: "shopping", label: "Shopping" },
     { value: "other", label: "Other" },
-  ]
+  ];
 
   const dueDateOptions = [
     { value: "all", label: "All Dates" },
@@ -171,22 +155,24 @@ const FilterForm = ({ onApply, onReset }) => {
     { value: "upcoming", label: "Upcoming" },
     { value: "overdue", label: "Overdue" },
     { value: "noDueDate", label: "No Due Date" },
-  ]
+  ];
 
   const sortOptions = [
     { value: "newest", label: "Newest First" },
     { value: "oldest", label: "Oldest First" },
     { value: "dueAsc", label: "Due Date ↑" },
     { value: "dueDesc", label: "Due Date ↓" },
-  ]
+  ];
 
   return (
     <form
       onSubmit={handleSubmit}
-      className="ml-[260px] w-[calc(100%-260px)] px-2 py-5"
-    >
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-[repeat(5,minmax(0,1fr))_auto_auto]">
+      className="ml-0 w-full min-w-0 px-3 py-4 pb-5 sm:px-5 sm:py-5 lg:ml-[260px] lg:w-[calc(100%-260px)] lg:px-2"
 
+    >
+      <div      
+        className="grid grid-cols-2 gap-2 min-[301px]:max-[500px]:grid-cols-3 min-[501px]:max-[689px]:grid-cols-4 min-[690px]:max-[1023px]:grid-cols-5 lg:grid-cols-[repeat(5,minmax(0,1fr))_auto_auto] sm:gap-3"
+      >
         <FilterDropdown
           name="status"
           label="Status"
@@ -196,7 +182,6 @@ const FilterForm = ({ onApply, onReset }) => {
           iconColor="#4868A8"
           onChange={handleChange}
         />
-
         <FilterDropdown
           name="priority"
           label="Priority"
@@ -206,7 +191,6 @@ const FilterForm = ({ onApply, onReset }) => {
           iconColor="#FF3D52"
           onChange={handleChange}
         />
-
         <FilterDropdown
           name="category"
           label="Category"
@@ -216,7 +200,6 @@ const FilterForm = ({ onApply, onReset }) => {
           iconColor="#F4A521"
           onChange={handleChange}
         />
-
         <FilterDropdown
           name="dueDate"
           label="Due Date"
@@ -226,7 +209,6 @@ const FilterForm = ({ onApply, onReset }) => {
           iconColor="#365A95"
           onChange={handleChange}
         />
-
         <FilterDropdown
           name="sort"
           label="Sort"
@@ -236,24 +218,25 @@ const FilterForm = ({ onApply, onReset }) => {
           iconColor="#3D5FA0"
           onChange={handleChange}
         />
+       
+        <div className="col-span-full flex min-w-0 items-center gap-2 min-[690px]:max-[1023px]:grid min-[690px]:max-[1023px]:grid-cols-5 lg:contents">         
+         
+          <button type="submit" className="h-[52px] min-w-0 flex-1 whitespace-nowrap rounded-xl bg-[#6246F5] px-3 text-[13px] 
+            font-semibold text-white shadow-[0_8px_20px_rgba(98,70,245,0.22)] transition-all duration-200 hover:-translate-y-0.5 
+            hover:bg-[#5539E9] sm:h-[62px] sm:px-5 sm:text-[15px] lg:flex-none lg:px-7">
+            Apply
+          </button>
 
-        <button
-          type="submit"
-          className="h-[62px] rounded-xl bg-[#6246F5] px-7 text-[15px] font-semibold text-white shadow-[0_8px_20px_rgba(98,70,245,0.22)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#5539E9]"
-        >
-          Apply
-        </button>
-
-        <button
-          type="button"
-          onClick={handleReset}
-          className="h-[62px] rounded-xl border border-[#E0E6F1] bg-white px-7 text-[15px] font-medium text-[#243B70] shadow-[0_5px_18px_rgba(44,62,120,0.05)] transition-all duration-200 hover:bg-[#F7F9FD]"
-        >
-          Reset
-        </button>
+          <button type="button" onClick={handleReset} className="h-[52px] min-w-0 flex-1 whitespace-nowrap rounded-xl border 
+            border-[#E0E6F1] bg-white px-3 text-[13px] font-medium text-[#243B70] shadow-[0_5px_18px_rgba(44,62,120,0.05)] 
+            transition-all duration-200 hover:bg-[#F7F9FD] sm:h-[62px] sm:px-5 sm:text-[15px] lg:flex-none lg:px-7">
+            Reset
+          </button>
+       
+        </div>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default FilterForm
+export default FilterForm;
