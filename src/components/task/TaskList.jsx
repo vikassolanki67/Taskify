@@ -6,7 +6,9 @@ import TaskFormModal from "./TaskFormModal";
 
 const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
   const toggleTask = useStore((state) => state.toggleTask);
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const isTaskModalOpen = useStore((state) => state.isTaskModalOpen);
+  const openTaskModal = useStore((state) => state.openTaskModal);
+  const closeTaskModal = useStore((state) => state.closeTaskModal);
   const menuRef = useRef(null);
 
   useEffect(() => {
@@ -45,12 +47,12 @@ const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
           </p>
 
           {isTaskModalOpen && (
-            <TaskFormModal onClose={() => setIsTaskModalOpen(false)} />
+            <TaskFormModal onClose={closeTaskModal} />
           )}
 
           <button
-            type="button"
-            onClick={() => setIsTaskModalOpen(true)}
+            type="button"          
+            onClick={openTaskModal}
             className="mt-5 rounded-xl bg-[#6246F5] px-6 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_rgba(98,70,245,0.22)] transition hover:-translate-y-0.5"
           >
             + Add Task
