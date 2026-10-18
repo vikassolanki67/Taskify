@@ -1,9 +1,20 @@
-import React, { useState } from "react";
+import React, { useState  } from "react";
 import { Search, Sun, Moon } from "lucide-react";
 import useStore from "../../store/taskStore";
 import { useNavigate } from "react-router";
+import { useRef } from "react";
+import { useEffect } from "react";
 
-const Header = () => {
+const Header = ({ onSearchReady }) => {
+
+  const searchref = useRef(null);
+  
+  useEffect(() => {
+    onSearchReady(() => {
+      searchref.current?.focus();
+    });
+  }, [onSearchReady]);
+
   const tasks = useStore((state) => state.tasks);
   const Name = useStore((state) => state.profile.name);
   const avatar = useStore((state) => state.profile.avatar);
@@ -30,6 +41,7 @@ const Header = () => {
         "https://api.dicebear.com/10.x/adventurer-neutral/svg?seed=TaskifyNeutral&backgroundColor=c0e8e8",
     },
   ];
+
 
   const selectedAvatar =
     avatarOptions.find((item) => item.value === avatar)?.image ??
@@ -70,6 +82,8 @@ const Header = () => {
       e.preventDefault();
       handleSearchSubmit();
     }
+
+
   };
 
   return (
@@ -85,6 +99,7 @@ const Header = () => {
           <input
             type="search"
             value={search}
+            ref = {searchref}
             onChange={(e) => handleSearch(e.target.value)}
             onKeyDown={handleSearchKeyDown}
             placeholder="Search tasks..."
