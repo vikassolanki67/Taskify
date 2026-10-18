@@ -2,12 +2,7 @@ import React, { useEffect, useState } from "react";
 import banner from "../assets/welcome-banner.png";
 import useStore from "../store/taskStore";
 import {
-  ClipboardList,
-  Check,
-  ClockFading,
-  ShieldAlert,
-  ListIcon,
-  ArrowRight,
+  ClipboardList , Check , ClockFading , ShieldAlert, ListIcon , ArrowRight,
 } from "lucide-react";
 import { NavLink } from "react-router";
 import RecentTasks from "../components/dashboard/RecentTasks";
@@ -19,7 +14,9 @@ const Deshboard = () => {
   const tasks = useStore((state) => state.tasks);
   const Name = useStore((state) => state.profile.name);
   const [greeting, setgreeting] = useState("");
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  const isTaskModalOpen = useStore((state) => state.isTaskModalOpen);
+  const openTaskModal = useStore((state) => state.openTaskModal);
+  const closeTaskModal = useStore((state) => state.closeTaskModal);
   const [openMenuId, setOpenMenuId] = useState(null);
 
   let completedCount = 0;
@@ -99,7 +96,7 @@ const Deshboard = () => {
 
           <button
             type="button"
-            onClick={() => setIsTaskModalOpen(true)}
+            onClick={openTaskModal}
             className="relative z-10 flex h-[42px] w-fit items-center gap-2 rounded-xl bg-[#6D3DF5] px-4 text-[14px] font-semibold text-white shadow-[0_8px_18px_rgba(109,61,245,0.28)] transition-all duration-200 hover:bg-[#5B2FE0] hover:shadow-[0_10px_22px_rgba(109,61,245,0.35)] sm:absolute sm:bottom-2 sm:left-6 sm:h-[46px] sm:px-5 sm:text-[15px] lg:left-8"
           >
             <span className="text-[20px] leading-none">+</span>
@@ -108,7 +105,7 @@ const Deshboard = () => {
 
           {isTaskModalOpen &&
             createPortal(
-              <TaskFormModal onClose={() => setIsTaskModalOpen(false)} />,
+              <TaskFormModal onClose={closeTaskModal} />,
               document.body,
             )}
 
