@@ -9,6 +9,17 @@ const useStore = create(
         deletedTask: null, 
         toast: null,
         profile : {},
+        isTaskModalOpen:false,
+
+        openTaskModal:() =>
+          set(()=>({
+            isTaskModalOpen: true
+          })),
+
+        closeTaskModal:() =>
+          set(()=>({
+            isTaskModalOpen: false
+          })),
 
         createTask: (data) =>
           set((state) => ({
