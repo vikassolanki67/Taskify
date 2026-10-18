@@ -21,7 +21,10 @@ const Alltask = () => {
     dueDate: "all",
     sort: "newest",
   });
-  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
+  
+  const isTaskModalOpen = useStore((state) => state.isTaskModalOpen);
+  const openTaskModal = useStore((state) => state.openTaskModal);
+  const closeTaskModal = useStore((state) => state.closeTaskModal);
 
   const tasks = useStore((state) => state.tasks);
 
@@ -131,7 +134,7 @@ const Alltask = () => {
 
             <button
               type="button"
-              onClick={() => setIsTaskModalOpen(true)}
+              onClick={openTaskModal}
               className="flex h-[42px] items-center gap-2 rounded-xl bg-[#6246F5] px-4 text-[13px] font-semibold text-white 
                          shadow-[0_8px_20px_rgba(17,157,164,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3316ee] sm:h-[46px] sm:px-5 sm:text-[14px]"
             >
@@ -168,7 +171,7 @@ const Alltask = () => {
 
       {isTaskModalOpen && (
         <TaskFormModal
-          onClose={() => setIsTaskModalOpen(false)}
+          onClose={closeTaskModal}
         />
       )}
       
