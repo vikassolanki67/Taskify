@@ -3,13 +3,73 @@ import { CalendarDays, EllipsisVertical, Square } from "lucide-react";
 import useStore from "../../store/taskStore";
 import TaskActionMenu from "./TaskActionMenu";
 import TaskFormModal from "./TaskFormModal";
+import { useCallback } from "react";
+import TaskDetails from "./TaskDetails";
+import ConfirmDialog from "../common/ConfirmDialog";
 
 const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
+
   const toggleTask = useStore((state) => state.toggleTask);
   const isTaskModalOpen = useStore((state) => state.isTaskModalOpen);
   const openTaskModal = useStore((state) => state.openTaskModal);
   const closeTaskModal = useStore((state) => state.closeTaskModal);
   const menuRef = useRef(null);
+
+  const [shortcutAction, setShortcutAction] = useState(null);
+  const [shortcutTask, setShortcutTask] = useState(null);
+
+  const handleTaskShortcut = (event, task) => {
+    const key = event.key.toLowerCase();
+
+    if (event.ctrlKey || event.altKey || event.metaKey) return;
+
+    if (event.target.isContentEditable) return;
+
+    if (["INPUT", "TEXTAREA", "SELECT"].includes(event.target.tagName)) {
+      if (event.target.type !== "checkbox" || key !== "enter") return;
+    }
+
+    if (key === "enter") {
+      event.preventDefault();
+      toggleTask(task.id);
+      return;
+    }
+
+    if (key === "e") {
+      event.preventDefault();
+      setShortcutTask(task);
+      setShortcutAction("edit");
+    }
+
+    if (key === "v") {
+      event.preventDefault();
+      setShortcutTask(task);
+      setShortcutAction("view");
+    }
+
+    if (key === "delete") {
+      event.preventDefault();
+      setShortcutTask(task);
+      setShortcutAction("delete");
+    }
+  };
+
+  useEffect(() => {
+    if (!shortcutAction) return;
+
+    const handleEscape = (event) => {
+      if (event.key === "Escape") {
+        setShortcutAction(null);
+        setShortcutTask(null);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscape);
+
+    return () => {
+      window.removeEventListener("keydown", handleEscape);
+    };
+  }, [shortcutAction]);
 
   useEffect(() => {
     if (!openMenuId) return;
@@ -109,6 +169,7 @@ const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
                 <div>
                   <input
                     type="checkbox"
+                    onKeyDown={(event) => handleTaskShortcut(event, task)}
                     checked={task.status === "completed"}
                     onChange={() => toggleTask(task.id)}
                     className="h-5 w-5 cursor-pointer accent-[#6246F5]"
@@ -179,6 +240,7 @@ const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
                 >
                   <button
                     type="button"
+                    onKeyDown={(event) => handleTaskShortcut(event, task)}
                     onClick={() =>
                       setOpenMenuId(openMenuId === task.id ? null : task.id)
                     }
@@ -202,7 +264,31 @@ const TaskList = ({ visibleTasks, totalTasks, openMenuId, setOpenMenuId }) => {
           })}
         </div>
       </div>
-    </div>
+
+      {shortcutTask && shortcutAction === "edit" && (
+        <TaskFormModal
+          task={shortcutTask}
+          onClose={() => setShortcutAction(null)}
+        />
+      )}
+
+      {shortcutTask && shortcutAction === "view" && (
+        <TaskDetails
+          task={shortcutTask}
+          onClose={() => setShortcutAction(null)}
+        />
+      )}
+
+      {shortcutTask && shortcutAction === "delete" && (
+        <ConfirmDialog
+          task={shortcutTask}
+          onClose={() => {
+            setShortcutAction(null);
+            setShortcutTask(null);
+          }}
+        />
+      )}
+    </div>    
   );
 };
 
