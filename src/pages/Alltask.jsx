@@ -1,4 +1,3 @@
-
 import React, { useMemo, useState } from "react";
 import banner from "../assets/banner2.png";
 import TaskFormModal from "../components/task/TaskFormModal";
@@ -21,7 +20,7 @@ const Alltask = () => {
     dueDate: "all",
     sort: "newest",
   });
-  
+
   const isTaskModalOpen = useStore((state) => state.isTaskModalOpen);
   const openTaskModal = useStore((state) => state.openTaskModal);
   const closeTaskModal = useStore((state) => state.closeTaskModal);
@@ -122,38 +121,38 @@ const Alltask = () => {
   }, [tasks, appliedFilters, selectedTaskId, globalSearchQuery]);
 
   return (
-    <div className="min-h-[calc(100vh-55px)] w-full min-w-0 pb-24 lg:pb-0">
+    <div className="min-h-[calc(100vh-55px)] w-full min-w-0 bg-transparent pb-24 transition-colors duration-300 dark:bg-[#162C44] lg:pb-0">
       <div
-          className="relative ml-0 h-[330px] w-full overflow-hidden bg-cover bg-center bg-no-repeat sm:h-[320px] md:h-[290px] md:bg-[length:100%_100%] lg:ml-[260px] lg:h-[265px] lg:w-[calc(100%-260px)]"        style={{
-          backgroundImage: `url(${banner})`
+        className="relative ml-0 h-[330px] w-full overflow-hidden bg-cover bg-center bg-no-repeat transition-colors duration-300 sm:h-[320px] md:h-[290px] md:bg-[length:100%_100%] lg:ml-[260px] lg:h-[265px] lg:w-[calc(100%-260px)]"
+        style={{
+          backgroundImage: `url(${banner})`,
         }}
       >
+        <div className="absolute inset-0" />
+
         <div className="relative flex h-full flex-col justify-between gap-3 px-4 py-4 sm:px-6 md:flex-row md:items-center md:gap-0 md:px-8 lg:px-10">
           <div className="absolute bottom-4 left-4 z-10 shrink-0 min-[768px]:static min-[768px]:max-[1023px]:mt-[200px] lg:mt-[210px]">
-
-
             <button
               type="button"
               onClick={openTaskModal}
-              className="flex h-[42px] items-center gap-2 rounded-xl bg-[#6246F5] px-4 text-[13px] font-semibold text-white 
-                         shadow-[0_8px_20px_rgba(17,157,164,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3316ee] sm:h-[46px] sm:px-5 sm:text-[14px]"
+              className="flex h-[42px] items-center gap-2 rounded-xl bg-[#6246F5] px-4 text-[13px] font-semibold text-white shadow-[0_8px_20px_rgba(17,157,164,0.25)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[#3316EE] sm:h-[46px] sm:px-5 sm:text-[14px]"
             >
               <span className="text-[22px] leading-none">+</span>
               Add Task
             </button>
           </div>
 
-          <div className="absolute right-3 top-5 max-w-[68%] px-0 py-0 text-right sm:right-5 sm:top-5 sm:max-w-[60%]  min-[300px]:max-[424px]:mt-[70px]  min-[424px]:max-[592px]:mt-[70px] min-[593px]:max-[639px]:mt-[80px] min-[640px]:max-[767px]:mt-[70px] md:static md:min-w-0 md:max-w-full md:px-2 md:py-2 min-[768px]:max-[1023px]:mt-[40px] lg:px-7 lg:py-5">
-            <h1 className="mt-0 text-[25px] font-bold leading-tight text-[#111A46] sm:text-[28px] md:text-[30px] lg:mt-14 lg:text-[32px]">
+          <div className="absolute right-3 top-5 max-w-[68%] px-0 py-0 text-right sm:right-5 sm:top-5 sm:max-w-[60%] min-[300px]:max-[424px]:mt-[70px] min-[424px]:max-[592px]:mt-[70px] min-[593px]:max-[639px]:mt-[80px] min-[640px]:max-[767px]:mt-[70px] md:static md:min-w-0 md:max-w-full md:px-2 md:py-2 min-[768px]:max-[1023px]:mt-[40px] lg:px-7 lg:py-5">
+            <h1 className="mt-0 text-[25px] font-bold leading-tight text-[#111A46] transition-colors duration-300  sm:text-[28px] md:text-[30px] lg:mt-14 lg:text-[32px]">
               All Tasks
             </h1>
 
-            <p className="mt-1 max-w-full text-[13px] font-medium text-[#303174] min-[424px]:max-[592px]:text-[#fff2f2] min-[300px]:max-[424px]:hidden sm:text-[14px]">
+            <p className="mt-1 max-w-full text-[13px] font-medium text-[#303174] transition-colors duration-300  min-[424px]:max-[592px]:text-[#FFF2F2] min-[300px]:max-[424px]:hidden sm:text-[14px]">
               Manage and organize all your tasks in one place.
             </p>
 
             <div className="relative right-0 mt-3 flex items-center justify-end gap-2 sm:mt-4 md:justify-end min-[424px]:max-[592px]:mt-[30px] min-[593px]:max-[639px]:mt-[50px] min-[768px]:max-[1023px]:top-4 lg:-right-[80px] lg:right-6 lg:mt-6">
-              <p className="text-[13px] font-medium italic leading-[1.45] text-[#1f2e51] min-[300px]:max-[424px]:text-[#000000] sm:text-[14px] md:text-[15px]">
+              <p className="text-[13px] font-medium italic leading-[1.45] text-[#1F2E51] transition-colors duration-300  min-[300px]:max-[424px]:text-[#000000] sm:text-[14px] md:text-[15px]">
                 Small steps
                 <br />
                 every day lead to
@@ -161,7 +160,7 @@ const Alltask = () => {
                 big progress.
               </p>
 
-              <span className="relative top-3 text-[25px] leading-none text-[#5368A8] sm:top-5 sm:text-[27px]">
+              <span className="relative top-3 text-[25px] leading-none text-[#5368A8] transition-colors duration-300 dark:text-[#6ea19d] sm:top-5 sm:text-[27px]">
                 ♡
               </span>
             </div>
@@ -170,11 +169,9 @@ const Alltask = () => {
       </div>
 
       {isTaskModalOpen && (
-        <TaskFormModal
-          onClose={closeTaskModal}
-        />
+        <TaskFormModal onClose={closeTaskModal} />
       )}
-      
+
       <FilterForm
         onApply={setAppliedFilters}
         onReset={setAppliedFilters}
