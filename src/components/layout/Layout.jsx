@@ -5,7 +5,7 @@ import Header from './Header'
 import Footer from './Footer'
 import Toast from '../common/Toast'
 import useStore from '../../store/taskStore'
-import { useCallback, useState } from "react";
+import { useCallback, useState ,useEffect } from "react";
 import useKeyboardShortcuts from "../../hooks/useKeyboardShortcuts.js";
 import { useNavigate } from "react-router";
 
@@ -33,6 +33,13 @@ const Layout = () => {
     onSettings: () => navigate("/setting"),
   });
 
+  const theme = useStore((state) => state.theme);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", theme === "dark");
+  }, [theme]);
+
+  
   return (
     <div className="flex min-h-screen flex-col">
       <Sidebar />
