@@ -2,7 +2,12 @@ import React, { useEffect, useState } from "react";
 import banner from "../assets/welcome-banner.png";
 import useStore from "../store/taskStore";
 import {
-  ClipboardList , Check , ClockFading , ShieldAlert, ListIcon , ArrowRight,
+  ClipboardList,
+  Check,
+  ClockFading,
+  ShieldAlert,
+  ListIcon,
+  ArrowRight,
 } from "lucide-react";
 import { NavLink } from "react-router";
 import RecentTasks from "../components/dashboard/RecentTasks";
@@ -78,19 +83,18 @@ const Deshboard = () => {
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover object-left sm:object-[25%_center] lg:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#EAE8FF]/95 via-[#EAE8FF]/80 to-[#EAE8FF]/20 sm:from-[#EAE8FF]/90 sm:via-[#EAE8FF]/65 sm:to-transparent lg:from-[#EAE8FF]/35 lg:via-transparent lg:to-transparent" />
-
+        <div className="absolute inset-0 bg-gradient-to-r from-[#EAE8FF]/95 via-[#EAE8FF]/80 to-[#EAE8FF]/20 transition-colors duration-300 dark:from-[#071725]/55 dark:via-[#071725]/75 dark:to-[#071725]/55 sm:from-[#EAE8FF]/90 sm:via-[#EAE8FF]/65 sm:to-transparent sm:dark:from-[#071725]/50 sm:dark:via-[#071725]/75 sm:dark:to-[#071725]/55 lg:from-[#EAE8FF]/35 lg:via-transparent lg:to-transparent lg:dark:from-[#071725]/45 lg:dark:via-[#071725]/75 lg:dark:to-[#071725]/55" />
         <div className="relative z-10 flex h-full flex-col items-start justify-center gap-3 px-4 py-4 sm:px-6 lg:justify-start lg:gap-3 lg:px-8 lg:pt-[82px]">
           <div className="flex max-w-full flex-wrap items-baseline gap-x-2 gap-y-1">
-            <h1 className="text-[22px] font-bold leading-tight text-[#111A46] sm:text-[28px] lg:text-[30px]">
+            <h1 className="text-[22px] font-bold leading-tight text-[#111A46] dark:text-[#F0F8FF] sm:text-[28px] lg:text-[30px]">
               {greeting},
             </h1>
-            <span className="max-w-full break-words text-[22px] font-bold leading-tight text-[#6D3DF5] sm:text-[28px] lg:text-[30px]">
+            <span className="max-w-full wrap-break-word text-[22px] font-bold leading-tight text-[#6D3DF5] dark:text-[#55E4DB] sm:text-[28px] lg:text-[30px]">
               {Name || "there"}
             </span>
           </div>
 
-          <p className="max-w-[280px] text-[13px] font-normal text-[#16274b] sm:max-w-none sm:text-[15px]">
+          <p className="max-w-[280px] text-[13px] font-normal text-[#16274b] dark:text-[#d5dbdf] sm:max-w-none sm:text-[15px]">
             Stay organized and get things done.
           </p>
 
@@ -111,48 +115,49 @@ const Deshboard = () => {
 
           <div className="absolute bottom-2 right-3 hidden max-w-[230px] items-center gap-2 sm:flex sm:bottom-2 sm:left-[212px] sm:right-auto sm:gap-3">
             <div className="h-10 w-[3px] shrink-0 rounded-full bg-[#7C3AED] sm:h-12" />
-            <p className="text-[12px] font-medium leading-[1.45] text-[#243B70] sm:text-[13px] lg:text-[15px]">
+            <p className="text-[12px] font-medium leading-[1.45] text-[#243B70] dark:text-[#d5dbdf] sm:text-[13px] lg:text-[15px]">
               Small steps every day <br /> lead to big progress ......... ♡
             </p>
           </div>
         </div>
       </section>
 
-      <section className="ml-0 grid w-full min-w-0 grid-cols-1 gap-3 bg-[#E1EBFE] px-3 py-3 sm:grid-cols-2 sm:gap-4 sm:px-5 lg:ml-[260px] lg:w-[calc(100%-260px)] xl:grid-cols-4 xl:gap-5">
-        <div className="flex h-[93px] min-w-0 items-center gap-4 rounded-2xl border-2 border-white/80 bg-[#E6F2FE]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
-          <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#E4F0FF]">
+
+      <section className="ml-0 grid w-full min-w-0 grid-cols-1 gap-3 bg-[#E1EBFE] px-3 py-3 transition-colors duration-300 dark:bg-[#162C44] sm:grid-cols-2 sm:gap-4 sm:px-5 lg:ml-[260px] lg:w-[calc(100%-260px)] xl:grid-cols-4 xl:gap-5">
+        <div className="flex h-[93px] min-w-0 items-center gap-4 rounded-2xl border-2 border-white/80 bg-[#E6F2FE]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)] dark:border-[#31516A] dark:bg-[#1C354D] dark:shadow-[0_5px_18px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_24px_rgba(8,169,157,0.12)]">
+          <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#E4F0FF] dark:bg-[#1478F2]/15">
             <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#1478F2] text-white shadow-[0_0px_17px_rgba(20,120,242,0.75)]">
               <ClipboardList size={20} strokeWidth={2.4} />
             </div>
           </div>
           <div className="min-w-0">
-            <p className="text-[13px] font-medium text-[#536B9E]">
+            <p className="text-[13px] font-medium text-[#536B9E] dark:text-[#B0C6D4]">
               Total Tasks
             </p>
-            <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46]">
+            <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46] dark:text-[#F0F8FF]">
               {totalCount}
             </p>
           </div>
         </div>
 
-        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#E6FAF4]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#E6FAF4]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)] dark:border-[#31516A] dark:bg-[#1C354D] dark:shadow-[0_5px_18px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_24px_rgba(8,169,157,0.12)]">
           <div className="flex items-center gap-3">
-            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#DDF8ED]">
+            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#DDF8ED] dark:bg-[#12B981]/15">
               <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#12B981] text-white shadow-[0_0px_12px_rgba(18,185,129,0.50)]">
                 <Check size={20} strokeWidth={2.8} />
               </div>
             </div>
             <div className="min-w-0">
-              <p className="text-[13px] font-medium text-[#536B9E]">
+              <p className="text-[13px] font-medium text-[#536B9E] dark:text-[#B0C6D4]">
                 Completed
               </p>
-              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46]">
+              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46] dark:text-[#F0F8FF]">
                 {completedCount}
               </p>
             </div>
           </div>
-          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#D9F3E9]">
-            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#159B70]">
+          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#D9F3E9] dark:bg-[#29445B]">
+            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#159B70] dark:text-[#4DE0AE]">
               {Math.round(completedPercentage)}%
             </span>
             <div
@@ -162,24 +167,24 @@ const Deshboard = () => {
           </div>
         </div>
 
-        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FFF5E9]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FFF5E9]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)] dark:border-[#31516A] dark:bg-[#1C354D] dark:shadow-[0_5px_18px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_24px_rgba(8,169,157,0.12)]">
           <div className="flex items-center gap-3">
-            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#FFF0D9]">
+            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#FFF0D9] dark:bg-[#F5A623]/15">
               <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#F5A623] text-white shadow-[0_0px_12px_rgba(245,166,35,0.56)]">
                 <ClockFading size={20} strokeWidth={2.5} />
               </div>
             </div>
             <div className="min-w-0">
-              <p className="text-[13px] font-medium text-[#536B9E]">
+              <p className="text-[13px] font-medium text-[#536B9E] dark:text-[#B0C6D4]">
                 Remaining
               </p>
-              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46]">
+              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46] dark:text-[#F0F8FF]">
                 {remainingCount}
               </p>
             </div>
           </div>
-          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#FCE9C9]">
-            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#C48118]">
+          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#FCE9C9] dark:bg-[#29445B]">
+            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#C48118] dark:text-[#FFD080]">
               {Math.round(remainingPercentage)}%
             </span>
             <div
@@ -189,22 +194,24 @@ const Deshboard = () => {
           </div>
         </div>
 
-        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FEEBF0]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)]">
+        <div className="relative flex h-[93px] min-w-0 flex-col justify-center rounded-2xl border-2 border-white/80 bg-[#FEEBF0]/80 px-4 shadow-[0_5px_18px_rgba(30,64,175,0.07)] backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(30,64,175,0.12)] dark:border-[#31516A] dark:bg-[#1C354D] dark:shadow-[0_5px_18px_rgba(0,0,0,0.12)] dark:hover:shadow-[0_8px_24px_rgba(8,169,157,0.12)]">
           <div className="flex items-center gap-3">
-            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#FFE1E5]">
+            <div className="flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full bg-[#FFE1E5] dark:bg-[#EF4444]/15">
               <div className="flex h-[38px] w-[38px] items-center justify-center rounded-full bg-[#EF4444] text-white shadow-[0_5px_15px_rgba(239,68,68,0.60)]">
                 <ShieldAlert size={20} strokeWidth={2.5} />
               </div>
             </div>
             <div className="min-w-0">
-              <p className="text-[13px] font-medium text-[#536B9E]">Overdue</p>
-              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46]">
+              <p className="text-[13px] font-medium text-[#536B9E] dark:text-[#B0C6D4]">
+                Overdue
+              </p>
+              <p className="mt-1 text-[26px] font-bold leading-none text-[#111A46] dark:text-[#F0F8FF]">
                 {overdueCount}
               </p>
             </div>
           </div>
-          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#FBD5DA]">
-            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#DC3D48]">
+          <div className="relative mt-3 h-[6px] w-full rounded-full bg-[#FBD5DA] dark:bg-[#29445B]">
+            <span className="absolute -top-[21px] right-0 text-[12px] font-semibold text-[#DC3D48] dark:text-[#FF8791]">
               {Math.round(overduePercentage)}%
             </span>
             <div
@@ -215,22 +222,23 @@ const Deshboard = () => {
         </div>
       </section>
 
-      <section className="ml-0 flex w-full min-w-0 flex-col gap-4 bg-[#E1EBFE] px-3 pb-4 pt-2 sm:px-5 lg:ml-[260px] lg:w-[calc(100%-260px)]  lg:pb-0 lg:pt-2 xl:flex-row">
-        <div className="h-[235px] w-full min-w-0 shrink-0 overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)] xl:w-[62%]">
-          <div className="flex h-[60px] items-center justify-between gap-2 border-b border-[#E7EEF9] px-3 sm:px-5">
+
+      <section className="ml-0 flex w-full min-w-0 flex-col gap-4 bg-[#E1EBFE] px-3 pb-4 pt-2 transition-colors duration-300 dark:bg-[#162C44] sm:px-5 lg:ml-[260px] lg:w-[calc(100%-260px)] lg:pb-0 lg:pt-2 xl:flex-row">
+        <div className="h-[235px] w-full min-w-0 shrink-0 overflow-hidden rounded-2xl border border-white/80 bg-white/90 shadow-[0_6px_22px_rgba(30,64,175,0.08)] transition-colors duration-300 dark:border-[#31516A] dark:bg-[#102638] dark:shadow-[0_0_18px_rgba(8,169,157,0.08)] xl:w-[62%]">
+          <div className="flex h-[60px] items-center justify-between gap-2 border-b border-[#E7EEF9] px-3 transition-colors duration-300 dark:border-[#31516A] sm:px-5">
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
               <ListIcon
                 size={24}
                 strokeWidth={2.5}
-                className="shrink-0 text-[#5B3DF5] sm:h-7 sm:w-7"
+                className="shrink-0 text-[#5B3DF5] dark:text-[#55E4DB] sm:h-7 sm:w-7"
               />
-              <p className="truncate text-[17px] font-bold text-[#111A46] sm:text-[20px] lg:text-[22px]">
+              <p className="truncate text-[17px] font-bold text-[#111A46] dark:text-[#F0F8FF] sm:text-[20px] lg:text-[22px]">
                 Recent Tasks
               </p>
             </div>
             <NavLink
               to="/Alltask"
-              className="flex shrink-0 items-center gap-1 text-[12px] font-semibold text-[#1769FF] transition-all duration-200 hover:gap-2 sm:gap-1.5 sm:text-[14px]"
+              className="flex shrink-0 items-center gap-1 text-[12px] font-semibold text-[#1769FF] transition-all duration-200 hover:gap-2 dark:text-[#55E4DB] sm:gap-1.5 sm:text-[14px]"
             >
               <span>View All</span>
               <ArrowRight size={17} strokeWidth={2.3} />
@@ -250,14 +258,14 @@ const Deshboard = () => {
                 />
               ))
             ) : (
-              <div className="flex h-full flex-col items-center justify-center px-3 text-center">
-                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EEF2FF] text-[#6D3DF5]">
+              <div className="flex h-full flex-col items-center justify-center dark:bg-[#0E1E2D] px-3 text-center">
+                <div className="flex h-11 w-11 items-center justify-center rounded-full bg-[#EEF2FF] text-[#6D3DF5] dark:bg-[#1C354D] dark:text-[#55E4DB]">
                   <ClipboardList size={21} strokeWidth={2.2} />
                 </div>
-                <p className="mt-3 text-[14px] font-semibold text-[#243B70]">
+                <p className="mt-3 text-[14px] font-semibold text-[#243B70] dark:text-[#F0F8FF]">
                   No recent tasks
                 </p>
-                <p className="mt-1 text-[12px] text-[#7C8EAD]">
+                <p className="mt-1 text-[12px] text-[#7C8EAD] dark:text-[#B0C6D4]">
                   Your recent tasks will appear here.
                 </p>
               </div>
@@ -265,10 +273,11 @@ const Deshboard = () => {
           </div>
         </div>
 
-        <div className="min-w-0 flex-1 ">
+        <div className="min-w-0 flex-1">
           <TodaySection />
         </div>
       </section>
+
     </div>
   );
 };
