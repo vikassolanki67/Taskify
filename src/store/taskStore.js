@@ -10,7 +10,17 @@ const useStore = create(
         toast: null,
         profile : {},
         isTaskModalOpen:false,
+        theme: "light", 
 
+        setTheme: (theme) =>
+          set(() => ({
+            theme,
+          })),
+
+        toggleTheme: () =>
+          set((state) => ({
+            theme: state.theme === "light" ? "dark" : "light",
+          })),
         openTaskModal:() =>
           set(()=>({
             isTaskModalOpen: true
